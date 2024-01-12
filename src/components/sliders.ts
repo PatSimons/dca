@@ -130,6 +130,20 @@ function initSlider(slider: HTMLElement) {
   let isPlaying: number | undefined;
   if (getAutoPlay === 'play') {
     playSlider();
+
+    // Add visibility listeners
+    document.addEventListener('visibilitychange', () => {
+      const doc_visibility = document.visibilityState;
+      //console.log(doc_visibility);
+      //console.log(isPlaying);
+      if (doc_visibility === 'hidden' && isPlaying) {
+        clearInterval(isPlaying);
+        //console.log('stopped');
+      } else if (doc_visibility === 'visible') {
+        playSlider();
+        //console.log('play');
+      }
+    });
   }
 
   // Set opacity 0 all slides.
@@ -484,20 +498,6 @@ function initSlider(slider: HTMLElement) {
   } else {
     setCover(cover);
   }
-
-  // Add visibility listeners
-  document.addEventListener('visibilitychange', () => {
-    const doc_visibility = document.visibilityState;
-    //console.log(doc_visibility);
-    //console.log(isPlaying);
-    if (doc_visibility === 'hidden' && isPlaying) {
-      clearInterval(isPlaying);
-      //console.log('stopped');
-    } else if (doc_visibility === 'visible') {
-      playSlider();
-      //console.log('play');
-    }
-  });
 } // End: initSlider
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
