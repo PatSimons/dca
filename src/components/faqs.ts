@@ -51,7 +51,6 @@ export function initFaqs() {
         const openFaqAnswer = openFaq?.querySelector<HTMLElement>('[cs-el="faq-answer"]');
         const openFaqQuestion = openFaq?.querySelector<HTMLElement>('[cs-el="faq-question"]');
 
-        console.log();
         if (openFaqAnswer && !activeFaq.classList.contains('is-open')) {
           openFaq?.classList.remove('is-open');
           openFaqQuestion?.classList.remove('is-active');
