@@ -75,6 +75,8 @@ export function initFaqs() {
           question?.classList.add('is-active');
           activeFaq?.classList.add('is-open');
         }
+
+        console.log('Is open: ' + isOpen);
       });
     });
   }
