@@ -20,7 +20,6 @@ export function initFaqs() {
       const faqAnswer = faq.querySelector<HTMLElement>('[cs-el="faq-answer"]');
       const faqIcon = faq.querySelector<HTMLElement>('[cs-el="faq-icon"]');
       const hover = gsap.timeline({ paused: true });
-      const close = gsap.timeline({ paused: true });
       const answerHeight = faqAnswer?.clientHeight ?? 0;
       gsap.set(faqAnswer, { height: 0, opacity: 0 });
       hover.to(faqIcon, { rotate: '45' });
@@ -47,29 +46,30 @@ export function initFaqs() {
 
       faq.addEventListener('click', (event) => {
         const activeFaq = event.currentTarget as HTMLElement;
+
+        // const openFaq = document.querySelector('.is-open');
+        // const openFaqAnswer = openFaq?.querySelector<HTMLElement>('[cs-el="faq-answer"]');
+        // const openFaqQuestion = openFaq?.querySelector<HTMLElement>('[cs-el="faq-question"]');
+
+        // if (openFaqAnswer && !activeFaq.classList.contains('is-open')) {
+        //   openFaq?.classList.remove('is-open');
+        //   openFaqQuestion?.classList.remove('is-active');
+
+        //   gsap.to(openFaqAnswer, {
+        //     opacity: 0,
+        //     height: 0,
+        //     ease: gsapEaseType,
+        //     duration: gsapDuration,
+        //   });
+        // }
+
         const question = activeFaq.querySelector('[cs-el="faq-question"]');
-
         if (isOpen) {
-          // Closing
           isOpen = false;
-          const openFaq = document.querySelector('.is-open');
-          const openFaqQuestion = openFaq?.querySelector<HTMLElement>('[cs-el="faq-question"]');
-
-          close.to(openFaq, {
-            opacity: 0,
-            height: 0,
-            ease: gsapEaseType,
-            duration: gsapDuration,
-          });
-
-          close.timeScale(1).play();
-
-          if (openFaqQuestion && openFaq) {
-            openFaq?.classList.remove('is-open');
-            openFaqQuestion?.classList.remove('is-active');
-          }
+          hover.timeScale(1.5).reverse();
+          question?.classList.remove('is-active');
+          activeFaq?.classList.remove('is-open');
         } else {
-          // Opening
           isOpen = true;
           hover.timeScale(1).play();
           question?.classList.add('is-active');
